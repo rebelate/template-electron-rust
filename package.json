@@ -24,8 +24,6 @@
 		"@sveltejs/adapter-static": "^1.0.0-next.11",
 		"@sveltejs/kit": "next",
 		"@types/electron-window-state": "^5.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.5.0",
-		"@typescript-eslint/parser": "^5.5.0",
 		"concurrently": "^6.4.0",
 		"electron": "^16.0.4",
 		"electron-builder": "^22.14.5",
