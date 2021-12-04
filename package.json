@@ -1,0 +1,96 @@
+{
+    "name": "{{project-name}}",
+    "description": "",
+    "version": "0.0.0",
+    "private": true,
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "main": "public/electron.js",
+    "homepage": "./",
+    "author": {
+        "name": "{{authors}}",
+        "email": "author@example.com",
+        "url": "https://example.com"
+    },
+    "build": {
+        "appId": "com.example.{{project-name}}",
+        "productName": "{{project-name}}",
+        "copyright": "Copyright © 2020 ${author}",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "files": [
+            "build/**/*",
+            "node_modules/**/*",
+            "native/index.node"
+        ],
+        "directories": {
+            "buildResources": "assets"
+        }
+    },
+    "rescripts": [
+        "env"
+    ],
+    "scripts": {
+        "start": "rescripts start",
+        "build": "run build.debug",
+        "build.debug": "run-s build.debug.backend build.debug.frontend",
+        "build.debug.backend": "electron-build-env neon build",
+        "build.debug.frontend": "rescripts build",
+        "build.release": "run-s build.release.backend build.release.frontend",
+        "build.release.backend": "electron-build-env neon build --release",
+        "build.release.frontend": "rescripts build",
+        "test": "run-s test.backend test.frontend",
+        "test.backend": "cargo test",
+        "test.frontend": "rescripts test",
+        "dev": "run-s build dev.concurrent",
+        "dev.debug": "run-s build.debug dev.concurrent",
+        "dev.release": "run-s build.release dev.concurrent",
+        "dev.concurrent": "run-p dev.concurrent.env_start dev.concurrent.wait_electron",
+        "dev.concurrent.env_start": "cross-env BROWSER=none yarn start",
+        "dev.concurrent.wait_electron": "run-s dev.concurrent.wait_on dev.concurrent.electron",
+        "dev.concurrent.wait_on": "wait-on http://localhost:3000",
+        "dev.concurrent.electron": "electron .",
+        "postinstall": "electron-builder install-app-deps",
+        "preelectron-pack": "yarn build",
+        "electron-pack": "run-s build.release.backend electron-pack.electron-builder",
+        "electron-pack.electron-builder": "electron-builder build -w"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.16.0",
+        "@testing-library/react": "^12.1.2",
+        "@testing-library/user-event": "^13.5.0",
+        "cross-env": "^7.0.3",
+        "electron-is-dev": "^2.0.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "4.0.3"
+    },
+    "devDependencies": {
+        "@rescripts/cli": "^0.0.16",
+        "@rescripts/rescript-env": "^0.0.14",
+        "cpx": "^1.5.0",
+        "electron": "^16.0.4",
+        "electron-build-env": "^0.2.0",
+        "electron-builder": "^22.14.5",
+        "electron-rebuild": "^3.2.5",
+        "neon-cli": "^0.9.1",
+        "npm-run-all": "^4.1.5",
+        "run-proxy": "^1.0.1",
+        "typescript": "^4.5.2",
+        "wait-on": "^6.0.0"
+    }
+}
